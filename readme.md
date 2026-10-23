@@ -4,6 +4,8 @@
 
 # Apple Logo Screensaver
 
+English | [简体中文](README.zh-CN.md)
+
 A simple and colorful screensaver with a looping animated Apple logo. This screensaver is based on a similar one that ran in Apple stores on Macs circa 2020.
 
 ## Installation
