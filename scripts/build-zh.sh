@@ -67,11 +67,12 @@ echo "▸ 校验产物…"
 plutil -lint "${BUNDLE}/Contents/Info.plist"
 codesign --verify --strict "${BUNDLE}"
 
-echo "▸ 打包 zip…"
-(cd build && zip -qry "${NAME}.saver.zip" "${NAME}.saver")
+echo "▸ 打包 zip(附件名用 ASCII,避免 GitHub Release 剥离中文字符)…"
+(cd build && zip -qry "Apple-Logo-Screensaver-ZH.zip" "${NAME}.saver")
 
 echo ""
 echo "✅ 构建完成:"
 ls -lh build | tail -2
 echo ""
-echo "安装方式:双击 build/${NAME}.saver,或把它拷到 ~/Library/Screen Savers/"
+echo "安装方式:解压 Apple-Logo-Screensaver-ZH.zip 后双击 ${NAME}.saver,"
+echo "或把它拷到 ~/Library/Screen Savers/"
