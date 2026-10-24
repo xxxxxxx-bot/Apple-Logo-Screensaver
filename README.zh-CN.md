@@ -44,7 +44,26 @@ English | [简体中文](README.zh-CN.md)
 
 没有任何绘图或动画代码——**想换成自己的动画,替换 `Resources/video.mp4` 重新编译即可**。
 
-## 从源码构建
+## 中文版构建(推荐)
+
+本仓库在此基础上做了中文化,并提供了**不依赖完整 Xcode、不需要开发者账号**的一键构建脚本——只需 Xcode 命令行工具(Command Line Tools)即可:
+
+```bash
+./scripts/build-zh.sh
+```
+
+产物为 `build/苹果LOGO屏保.saver`,在系统「屏幕保护程序」列表中显示为中文名。双击即可安装,或拷贝到 `~/Library/Screen Savers/` 目录。
+
+此外,仓库配置了 GitHub Actions(见 `.github/workflows/build-zh.yml`):每次推送到 `main` 分支都会在云端自动构建,并在 Action 页面生成可直接下载的安装包(免签名版本,首次打开如被 Gatekeeper 拦截,右键选择"打开"即可)。
+
+### 中文化改动一览
+
+- 屏保在系统设置中显示为 **「苹果LOGO屏保」**(原版显示为 "Apple Logo");
+- 源码 [`AppleLogoScreenSaverView.swift`](Apple%20Logo%20Screensaver/AppleLogoScreenSaverView.swift) 全部改为中文注释;
+- 增加 `@objc(AppleLogoScreenSaverView)` 显式声明,使手工 swiftc 构建也能被系统正确加载;
+- 弃用 API 清理:`AVAsset(url:)` → `AVURLAsset(url:)`。
+
+## 从源码构建(原版方式)
 
 ```bash
 # 仅编译(本地自用,无需开发者账号)

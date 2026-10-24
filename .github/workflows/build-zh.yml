@@ -1,0 +1,23 @@
+name: 构建中文版屏保
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 构建「苹果LOGO屏保.saver」
+        run: ./scripts/build-zh.sh
+
+      - name: 上传安装包
+        uses: actions/upload-artifact@v4
+        with:
+          name: 苹果LOGO屏保
+          path: build/*.zip
+          if-no-files-found: error
