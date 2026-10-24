@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-latest
@@ -15,9 +18,21 @@ jobs:
       - name: 构建「苹果LOGO屏保.saver」
         run: ./scripts/build-zh.sh
 
-      - name: 上传安装包
+      - name: 上传构建产物(Artifacts)
         uses: actions/upload-artifact@v4
         with:
           name: 苹果LOGO屏保
           path: build/*.zip
           if-no-files-found: error
+
+      - name: 发布到 Releases(替换上一次的自动构建)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete zh-latest --cleanup-tag -y || true
+          gh release create zh-latest build/*.zip \
+            --title "苹果LOGO屏保(最新自动构建)" \
+            --notes "每次推送到 main 分支自动构建。
+          下载 zip 后解压,双击「苹果LOGO屏保.saver」即可安装。
+          免签名版本,如被 Gatekeeper 拦截,右键选择「打开」。
+          对应提交:${{ github.sha }}"
