@@ -18,6 +18,9 @@ jobs:
       - name: 构建「苹果LOGO屏保.saver」
         run: ./scripts/build-zh.sh
 
+      - name: 加载冒烟测试(防止"构建成功但装上黑屏")
+        run: swift scripts/test-load.swift "$PWD/build/苹果LOGO屏保.saver"
+
       - name: 上传构建产物(Artifacts)
         uses: actions/upload-artifact@v4
         with:

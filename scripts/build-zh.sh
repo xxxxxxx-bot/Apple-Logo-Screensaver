@@ -11,12 +11,15 @@ BUNDLE="build/${NAME}.saver"
 rm -rf build
 mkdir -p "${BUNDLE}/Contents/MacOS" "${BUNDLE}/Contents/Resources"
 
-echo "▸ 编译 Swift 源码…"
+echo "▸ 编译 Swift 源码(链接为 Mach-O bundle,屏保模块必需的格式)…"
 swiftc -O \
   -framework ScreenSaver \
   -framework AVKit \
   -framework AVFoundation \
   -framework AppKit \
+  -Xlinker -bundle \
+  -Xlinker -undefined \
+  -Xlinker dynamic_lookup \
   "Apple Logo Screensaver/AppleLogoScreenSaverView.swift" \
   -o "${BUNDLE}/Contents/MacOS/${NAME}"
 
